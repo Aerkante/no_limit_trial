@@ -1,4 +1,4 @@
-# OharaCoscarelli API
+# No Limit API
 
 This is a REST API built with AdonisJS v5.
 
