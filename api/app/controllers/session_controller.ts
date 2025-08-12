@@ -1,11 +1,12 @@
 import env from '#start/env'
+import { finalizeSessionValidator } from '#validators/finalize_session'
 import { HttpContext } from '@adonisjs/core/http'
 
 export default class SessionController {
   async finalize({ params, request, response }: HttpContext) {
     try {
       const { id } = params
-      const payload = request.body()
+      const payload = await request.validateUsing(finalizeSessionValidator)
 
       const apiResponse = await fetch(`${env.get('PYTHON_API_URL')}/process`, {
         method: 'POST',
