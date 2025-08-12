@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgres_nolimit
+      - POSTGRES_PASSWORD=nolimit_password
+      - POSTGRES_DB=nolimit_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - '5050:80'
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=nolimit.hq@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=ugg1;KYyhD>Uj,V*8Ho3ZU10;4G^?q.
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    name: nolimit_postgres_data
+  pgadmin_data:
+    name: nolimit_pgadmin_data
+
+networks:
+  app-network:
+    driver: bridge
