@@ -12,6 +12,7 @@ import { middleware } from './kernel.js'
 const AuthController = () => import('#controllers/auth_controller')
 const AthleteController = () => import('#controllers/athlete_controller')
 const SessionController = () => import('#controllers/session_controller')
+const SensorController = () => import('#controllers/sensor_controller')
 const prefix = '/v1'
 
 const AuthRoutes = router
@@ -39,6 +40,8 @@ const SystemRoutes = router.group(() => {
   router.get('/health', async () => {
     return 'OK'
   })
+
+  router.post('/sensor-batch', [SensorController, 'receiveBatch'])
 })
 
 export { AuthRoutes, SystemRoutes, AthleteRoutes, SessionRoutes }
